@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="description" content="CoffeePlus provides premium office coffee solutions across the GTA for dealerships, warehouses, and businesses. Monthly coffee service, machines, and maintenance included.">
+
+<meta name="keywords" content="office coffee service GTA, coffee vending machines Toronto, workplace coffee solutions, coffee service Brampton, coffee machines business Ontario">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CoffeePlus | Workplace Coffee Solutions GTA</title>
@@ -135,6 +138,37 @@
 
 </section>
 
+<section class="section">
+
+  <h2>Find Your Coffee Plan</h2>
+
+  <div class="card" style="max-width:600px;margin:auto;">
+
+    <p>Answer a few quick questions and we’ll recommend the right setup.</p>
+
+    <select id="employees">
+      <option value="">Number of Employees</option>
+      <option>1–25</option>
+      <option>25–75</option>
+      <option>75–150</option>
+      <option>150+</option>
+    </select>
+
+    <select id="type">
+      <option value="">Business Type</option>
+      <option>Dealership</option>
+      <option>Warehouse</option>
+      <option>Office</option>
+    </select>
+
+    <button onclick="recommendPlan()">Get Recommendation</button>
+
+    <p id="result" style="margin-top:15px;font-weight:bold;"></p>
+
+  </div>
+
+</section>
+
 <!-- CTA / CONTACT -->
 <section id="contact" class="cta">
 
@@ -142,17 +176,19 @@
 
   <p>Get a free consultation and customized monthly coffee program.</p>
 
-  <form>
+  <form id="coffeeForm">
 
-    <input type="text" placeholder="Business Name" required>
-    <input type="email" placeholder="Email" required>
-    <input type="text" placeholder="Phone Number">
+  <input type="text" name="business_name" placeholder="Business Name" required>
 
-    <textarea placeholder="Tell us about your coffee needs"></textarea>
+  <input type="email" name="email" placeholder="Email" required>
 
-    <button type="submit">Request Free Consultation</button>
+  <input type="text" name="phone" placeholder="Phone Number">
 
-  </form>
+  <textarea name="message" placeholder="Tell us about your coffee needs"></textarea>
+
+  <button type="submit">Request Free Consultation</button>
+
+</form>
 
 </section>
 
@@ -165,6 +201,12 @@
 </footer>
 
 <script src="assets/js/app.js"></script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("YOUR_PUBLIC_KEY");
+  })();
+</script>
 
 </body>
 </html>
