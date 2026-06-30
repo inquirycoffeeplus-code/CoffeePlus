@@ -1,58 +1,46 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute("href"))
-        .scrollIntoView({ behavior: "smooth" });
-    });
-  });
-
-  // FORM + EMAILJS
   const form = document.getElementById("coffeeForm");
 
-  form.addEventListener("submit", function(e) {
+  function showToast(message) {
+    const toast = document.createElement("div");
+
+    toast.innerText = message;
+    toast.style.position = "fixed";
+    toast.style.bottom = "20px";
+    toast.style.right = "20px";
+    toast.style.background = "#6f4e37";
+    toast.style.color = "white";
+    toast.style.padding = "12px 18px";
+    toast.style.borderRadius = "8px";
+    toast.style.zIndex = "9999";
+    toast.style.fontSize = "14px";
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
+  }
+
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    emailjs.send("service_8dc9xbj", "template_yi70fvq", {
-      business_name: form.business_name.value,
-      email: form.email.value,
-      phone: form.phone.value,
-      message: form.message.value
-    }, "ZM5N3iw1h274gLur0")
+    console.log("Form submitted");
 
+    emailjs.sendForm(
+      "service_8dc9xbj",
+      "template_yi70fvq",
+      this
+    )
     .then(() => {
-      alert("Thank you! CoffeePlus will contact you shortly.");
-      form.reset();
-    })
-
+  window.location.href = "thankyou.html";
+})
     .catch((error) => {
-      alert("Something went wrong. Please try again.");
-      console.error(error);
+      console.error("EmailJS Error:", error);
+      showToast("❌ Failed to send. Check console.");
     });
+
   });
 
 });
-
-function recommendPlan() {
-
-  const employees = document.getElementById("employees").value;
-  const type = document.getElementById("type").value;
-  const result = document.getElementById("result");
-
-  if (!employees || !type) {
-    result.innerText = "Please select both options.";
-    return;
-  }
-
-  if (employees === "1–25") {
-    result.innerText = "Recommended: Small Office Coffee Plan (Keurig System)";
-  }
-  else if (employees === "25–75") {
-    result.innerText = "Recommended: Business Coffee Plan (Bean-to-Cup System)";
-  }
-  else {
-    result.innerText = "Recommended: Enterprise Coffee Solution (BUNN / Necta Systems)";
-  }
-}
