@@ -1,22 +1,58 @@
-# CoffeePlus Website
+document.addEventListener("DOMContentLoaded", function () {
 
-Premium Workplace Coffee Solutions for GTA businesses.
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute("href"))
+        .scrollIntoView({ behavior: "smooth" });
+    });
+  });
 
-## Features
-- Responsive landing page
-- Contact form (demo)
-- Modern UI design
-- GitHub Pages ready
+  // FORM + EMAILJS
+  const form = document.getElementById("coffeeForm");
 
-## Deployment
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
 
-1. Upload files to GitHub repo
-2. Go to Settings → Pages
-3. Select "Deploy from branch"
-4. Your site will be live at:
-   https://yourusername.github.io/coffeeplus
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      business_name: form.business_name.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      message: form.message.value
+    }, "YOUR_PUBLIC_KEY")
 
-## Domain
+    .then(() => {
+      alert("Thank you! CoffeePlus will contact you shortly.");
+      form.reset();
+    })
 
-This site will later connect to:
-https://coffeeplus.ca
+    .catch((error) => {
+      alert("Something went wrong. Please try again.");
+      console.error(error);
+    });
+  });
+
+});
+
+function recommendPlan() {
+
+  const employees = document.getElementById("employees").value;
+  const type = document.getElementById("type").value;
+  const result = document.getElementById("result");
+
+  if (!employees || !type) {
+    result.innerText = "Please select both options.";
+    return;
+  }
+
+  if (employees === "1–25") {
+    result.innerText = "Recommended: Small Office Coffee Plan (Keurig System)";
+  }
+  else if (employees === "25–75") {
+    result.innerText = "Recommended: Business Coffee Plan (Bean-to-Cup System)";
+  }
+  else {
+    result.innerText = "Recommended: Enterprise Coffee Solution (BUNN / Necta Systems)";
+  }
+}
