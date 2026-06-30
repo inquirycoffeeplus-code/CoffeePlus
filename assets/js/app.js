@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    emailjs.send("service_8dc9xbj", "template_yi70fvq", {
       business_name: form.business_name.value,
       email: form.email.value,
       phone: form.phone.value,
       message: form.message.value
-    }, "YOUR_PUBLIC_KEY")
+    }, "ZM5N3iw1h274gLur0")
 
     .then(() => {
       alert("Thank you! CoffeePlus will contact you shortly.");
